@@ -1,3 +1,5 @@
+-- https://www.sql-practice.com/
+
 SELECT first_name,last_name ,gender from patients where gender='M';
 
 SELECT first_name,last_name from patients WHERE allergies is NULL ;
