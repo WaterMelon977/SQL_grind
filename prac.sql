@@ -589,3 +589,41 @@ select
     ELSE 'FEMALE'
   END AS 'gender_type'
 from patients
+
+
+-- Show patient_id, first_name, last_name from patients whose does not have any records in the admissions table. 
+-- (Their patient_id does not exist in any admissions.patient_id rows.)
+select
+  patient_id,
+  first_name,
+  last_name
+from patients
+where patient_id noT IN (
+    select ad.patient_id
+    from admissions ad
+  )
+
+
+SELECT
+  patients.patient_id,
+  first_name,
+  last_name
+from patients
+  left join admissions on patients.patient_id = admissions.patient_id
+where admissions.patient_id is NULL
+
+
+-- Display a single row with max_visits, min_visits, average_visits where the maximum, minimum and
+--  average number of admissions per day is calculated. Average is rounded to 2 decimal places.
+
+
+select max(visits) as max_visits , MIN(visits) as min_visits ,ROUND(AVG(visits) ,2) FROM
+(
+select COUNT(*) as visits
+from admissions
+group by admission_date
+)
+
+
+
+
